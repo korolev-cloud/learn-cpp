@@ -1,11 +1,19 @@
 #include <iostream>
+#include <string>
+#include <cctype>
 
 std::string encrypt_caesar (std::string text, int shift)
 {
     std::string encrypt;
     for (int i = 0; i < text.length(); i++)
     {
-        encrypt += i + shift;
+        char symbol = text[i];
+        if (std::isalpha(int (symbol)))
+        {
+            encrypt += char (int(symbol) + shift);
+        } else {
+            encrypt += symbol;
+        }
     }
     return encrypt;
 }
@@ -18,7 +26,6 @@ int main ()
     std::cout << "Code: "; std::cin >> shift;
     std::cout << encrypt_caesar(text, shift);
 }
-
 /* Задание 1. Шифр Цезаря
 Что нужно сделать
 Юлий Цезарь использовал свой способ шифрования текста. Каждая буква заменялась на 
