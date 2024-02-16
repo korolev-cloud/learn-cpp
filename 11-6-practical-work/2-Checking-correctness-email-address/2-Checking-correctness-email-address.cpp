@@ -1,9 +1,27 @@
 ﻿#include <iostream>
+#include <regex>
+
+bool isValidEmail(const std::string& email)
+{
+    // объявляем регулярное выражение
+    const std::tr1::regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+
+    // проверяем что строка соответствует регулярному выражению
+    return std::tr1::regex_match(email, pattern);
+}
 
 int main()
 {
     std::string checked;
     std::cout << "Input e-mail address: "; std::cin >> checked;
+    if (isValidEmail(checked))
+    {
+        std::cout << "Yes";
+    }
+    else
+    {
+        std::cout << "No";
+    }
 }
 
 /*
