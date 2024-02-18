@@ -1,11 +1,10 @@
 ﻿#include <iostream>
 #include <regex>
-#include <list>
 
 bool isValidEmail(std::string Input)
 {
     // шаблон регулярного выражения
-    const std::regex Pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    const std::regex Pattern("^[A-Za-z0-9]+([A-Za-z0-9._-]+)*[A-Za-z0-9]@[A-Za-z0-9]+\.[A-Za-z]{2,4}$");
 
     // возвращаем True, если в строке есть вхождение по регулярному выражению
     return std::regex_match(Input, Pattern);
@@ -13,16 +12,20 @@ bool isValidEmail(std::string Input)
 
 int main()
 {
-    std::string checked;
-    std::cout << "Input e-mail address: "; std::cin >> checked;
-    if (isValidEmail(checked))
+    while (true)
     {
-        std::cout << "Yes";
+        std::string checked;
+        std::cout << "Input e-mail address: "; std::cin >> checked;
+        if (isValidEmail(checked))
+        {
+            std::cout << "Yes\n";
+        }
+        else
+        {
+            std::cout << "No\n";
+        }
     }
-    else
-    {
-        std::cout << "No";
-    }
+    
 }
 
 /*
