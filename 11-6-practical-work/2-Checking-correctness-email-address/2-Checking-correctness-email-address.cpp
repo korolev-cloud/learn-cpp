@@ -1,33 +1,55 @@
 ﻿#include <iostream>
 
 
-bool isValidEmail(std::string email) 
+bool foundAt = false;
+// флажок найден символ @
+bool isValidEmail = true;
+// флажок строка валидна как email
+int positionAt = 0;
+// позиция @
+
+void checkingFirstPart(char strFirst)
 {
-    for (int i = 0; i < email.length(); i++) 
-    {
-        bool at = false;
-        int count = 0;
-        if (email[i] == '.' && i = 0 || email[i] == '.' && email[email.length()-1] 
-            || email[i] == '.' && email[i - 1] == '.') 
-        {
-            break;
-        }
-        if (email[i] == '@' && !at) break;
-    }
+    std::string validSymbols = "!#$%&'*+-/=?^_`{|}~";
+    // разрешены !#$%&'*+-/=?^_`{|}~
+    // 
+    // длина (i+1) не менее одного и не более 64 символов
+    if (strFirst == '@') foundAt = true;
+  
+}
+
+void checkingSecondPart(char strSecond)
+{
+
+    // если символ @ то isValidEmail = false
 }
 
 int main()
 {
     std::string checked;
     std::cout << "Input e-mail address: "; std::cin >> checked;
-    if (isValidEmail(checked))
+    if (checked.length() < 3) isValidEmail = false;
+    // проверка на минимальное количество символов
+    int firstHalf = checked.find('@');
+    int secondHalf = checked.length() - firstHalf;
+    // нахождение длины первой и второй части email адреса
+    if (!firstHalf) isValidEmail = false;
+    if (secondHalf < 2 || secondHalf > 64) isValidEmail = false;
+    // проверка на длину первой части
+
+    for (int i = 0; i < checked.length() && isValidEmail; i++)
+        // цикл от начала до конца строки пока строка валидна как email
     {
-        std::cout << "Yes";
+        // буквы, цифры знак «-» (дефис), точка
+        // точка не первый и не последний символ, не две подряд
+
+        if (!foundAt) checkingFirstPart(checked[i]);
+        // если не найдена @ то проверям символы первой части
+        else checkingSecondPart(checked[i]);
+        // иначе проверяем вторую часть
     }
-    else
-    {
-        std::cout << "No";
-    }
+    std::cout << (isValidEmail) ? "Yes" : "No";
+
 }
 
 /*
