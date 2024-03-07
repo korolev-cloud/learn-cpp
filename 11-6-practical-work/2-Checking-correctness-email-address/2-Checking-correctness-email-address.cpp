@@ -1,14 +1,19 @@
 ﻿#include <iostream>
-#include <regex>
-#include <list>
 
-bool isValidEmail(std::string Input)
+
+bool isValidEmail(std::string email) 
 {
-    // шаблон регулярного выражения
-    const std::regex Pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
-
-    // возвращаем True, если в строке есть вхождение по регулярному выражению
-    return std::regex_match(Input, Pattern);
+    for (int i = 0; i < email.length(); i++) 
+    {
+        bool at = false;
+        int count = 0;
+        if (email[i] == '.' && i = 0 || email[i] == '.' && email[email.length()-1] 
+            || email[i] == '.' && email[i - 1] == '.') 
+        {
+            break;
+        }
+        if (email[i] == '@' && !at) break;
+    }
 }
 
 int main()
@@ -95,5 +100,16 @@ i_like_underscore@but_its_not_allow_in _this_part.example.com (во второй
 Как отправить задание на проверку
 Пришлите ссылку на repl.it или файл .срр с решением через форму ниже. 
 Также вы можете создать открытый репозиторий в GitHub с содержимым проекта.
+
+Алгоритм проверки
+bool trueAddress = false
+
+bool функция проверка первой части
+
+Цикл длиной строки
+
+Проверяем, что символ является @ и trueAddress false, на true , иначе выход и возвращаем false
+
+Если адрес true пишем Yes иначе No
 
 */ 
