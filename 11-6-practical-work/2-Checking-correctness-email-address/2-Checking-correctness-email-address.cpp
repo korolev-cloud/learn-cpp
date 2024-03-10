@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cctype>
 
 
 bool foundAt = false;
@@ -10,19 +11,23 @@ int positionAt = 0;
 
 void checkingFirstPart(char strFirst)
 {
-    std::string validSymbols = "!#$%&'*+-/=?^_`{|}~";
+    std::string validSymbols = "@!#$%&'*+-/=?^_`{|}~";
     // разрешены !#$%&'*+-/=?^_`{|}~
-    // 
-    // длина (i+1) не менее одного и не более 64 символов
+    for (int i = 0; i <= validSymbols.length(); i++)
+    {
+        if (validSymbols[i] == strFirst) isValidEmail = true; break;
+    }
+    // символ из списка разрешенных
     if (strFirst == '@') foundAt = true;
-  
 }
 
 void checkingSecondPart(char strSecond)
 {
-
+    if (strSecond == '@') isValidEmail = false;
     // если символ @ то isValidEmail = false
 }
+
+
 
 int main()
 {
@@ -35,21 +40,25 @@ int main()
     // нахождение длины первой и второй части email адреса
     if (!firstHalf) isValidEmail = false;
     if (secondHalf < 2 || secondHalf > 64) isValidEmail = false;
-    // проверка на длину первой части
+    // проверка на длину первой части ?
 
     for (int i = 0; i < checked.length() && isValidEmail; i++)
         // цикл от начала до конца строки пока строка валидна как email
     {
+        isValidEmail = false;
         // буквы, цифры знак «-» (дефис), точка
         // точка не первый и не последний символ, не две подряд
-
+        if (isalpha(checked[i]) || isdigit(checked[i]
+            || checked[i] == '-' || checked[i] == '.')) isValidEmail = true;
+        else if (checked[i] == '.' && (i != 0 || i != checked.length() - 1)
+            || checked[i] == '.' && checked[i + 1] != '.')  isValidEmail = true;
         if (!foundAt) checkingFirstPart(checked[i]);
         // если не найдена @ то проверям символы первой части
         else checkingSecondPart(checked[i]);
         // иначе проверяем вторую часть
+        
     }
-    std::cout << (isValidEmail) ? "Yes" : "No";
-
+    std::cout << (isValidEmail ? "Yes" : "No") << std::endl;
 }
 
 /*
