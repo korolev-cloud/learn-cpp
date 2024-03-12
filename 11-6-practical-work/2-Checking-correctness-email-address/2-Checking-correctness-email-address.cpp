@@ -5,25 +5,26 @@
 bool foundAt = false;
 // флажок найден символ @
 bool isValidEmail = true;
-// флажок строка валидна как email
-int positionAt = 0;
+// флажок строка является email
+
+// int positionAt = 0;
 // позиция @
 
 void checkingFirstPart(char strFirst)
 {
     std::string validSymbols = "@!#$%&'*+/=?^_`{|}~";
-    // разрешены !#$%&'*+-/=?^_`{|}~
+    // разрешенные символы !#$%&'*+-/=?^_`{|}~
     for (int j = 0; j < validSymbols.length(); j++)
     {
         if (strFirst == validSymbols[j])
         {
-            std::cout << "j=" << j << std::endl;
+            // std::cout << "j=" << j << std::endl;
             isValidEmail = true;
             break;
         }
     }
-    // символ из списка разрешенных
     if (strFirst == '@') foundAt = true;
+    // если нашли @ то поставить флажок
 }
 
 void checkingSecondPart(char strSecond)
@@ -36,24 +37,24 @@ void checkingSecondPart(char strSecond)
 
 int main()
 {
-
     std::string checked;
     std::cout << "Input e-mail address: "; std::cin >> checked;
     // if (checked.length() < 3) isValidEmail = false;
     // проверка на минимальное количество символов
     int firstHalf = checked.find('@');
     if (firstHalf == -1) isValidEmail = false;
-    int secondHalf = checked.length() - firstHalf + 1;
+    int secondHalf = checked.length() - firstHalf;
     // нахождение длины первой и второй части email адреса
+    
     // if (!firstHalf) isValidEmail = false;
     // std::cout << firstHalf << std::endl;
     // std::cout << secondHalf << std::endl;
-    if (firstHalf < 2 || firstHalf > 64
-        || secondHalf < 2 || secondHalf > 64) isValidEmail = false;
+    if (firstHalf == 0 || firstHalf > 63
+        || secondHalf < 1 || secondHalf > 63) isValidEmail = false;
     // проверка на длину
 
     for (int i = 0; i < checked.length() && isValidEmail; i++)
-        // цикл от начала до конца строки пока строка валидна как email
+        // цикл от начала до конца строки пока строка является email
     {
         isValidEmail = false;
         // буквы, цифры знак «-» (дефис), точка
@@ -62,12 +63,14 @@ int main()
             || checked[i] == '-')
         {
             isValidEmail = true;
-            std::cout << checked[i] << "=Isalpha,isdigit,-" << std::endl;
+            
+            // std::cout << checked[i] << "=Isalpha,isdigit,-" << std::endl;
         }
         else if (checked[i] == '.' && checked[i+1] != '.')
         {
             isValidEmail = true;
-            std::cout << "Dot" << std::endl;
+            
+            // std::cout << "Dot" << std::endl;
         }
         if (!foundAt)
         {
@@ -81,7 +84,8 @@ int main()
             // std::cout << "checkingSecondPart" << std::endl;
         }
         // иначе проверяем вторую часть
-        std::cout << isValidEmail << "=isValidEmail" << std::endl;
+        
+        // std::cout << isValidEmail << "=isValidEmail" << std::endl;
 
     }
     std::cout << (isValidEmail ? "Yes" : "No") << std::endl;
