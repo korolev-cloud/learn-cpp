@@ -41,16 +41,15 @@ int main()
     // if (checked.length() < 3) isValidEmail = false;
     // проверка на минимальное количество символов
     int firstHalf = checked.find('@');
-    if (firstHalf == -1) isValidEmail = false;
     int secondHalf = checked.length() - firstHalf;
     // нахождение длины первой и второй части email адреса
     
     // if (!firstHalf) isValidEmail = false;
     // std::cout << firstHalf << std::endl;
     // std::cout << secondHalf << std::endl;
-    if (firstHalf == 0 || firstHalf > 63
+    if (!firstHalf|| firstHalf > 63
         || secondHalf < 1 || secondHalf > 63) isValidEmail = false;
-    // проверка на длину
+    // проверка на длину и наличие @
 
     for (int i = 0; i < checked.length() && isValidEmail; i++)
         // цикл от начала до конца строки пока строка является email
