@@ -7,9 +7,6 @@ bool foundAt = false;
 bool isValidEmail = true;
 // флажок строка является email
 
-// int positionAt = 0;
-// позиция @
-
 void checkingFirstPart(char strFirst)
 {
     std::string validSymbols = "@!#$%&'*+/=?^_`{|}~";
@@ -17,14 +14,14 @@ void checkingFirstPart(char strFirst)
     for (int j = 0; j < validSymbols.length(); j++)
     {
         if (strFirst == validSymbols[j])
+            // если символ из списка то email валидный
         {
-            // std::cout << "j=" << j << std::endl;
             isValidEmail = true;
             break;
         }
     }
     if (strFirst == '@') foundAt = true;
-    // если нашли @ то поставить флажок
+    // нашли @
 }
 
 
@@ -38,15 +35,11 @@ int main()
 {
     std::string checked;
     std::cout << "Input e-mail address: "; std::cin >> checked;
-    // if (checked.length() < 3) isValidEmail = false;
-    // проверка на минимальное количество символов
+
     unsigned char firstHalf = checked.find('@');
     unsigned char secondHalf = checked.length() - firstHalf;
     // нахождение длины первой и второй части email адреса
     
-    // if (!firstHalf) isValidEmail = false;
-    // std::cout << firstHalf << std::endl;
-    // std::cout << secondHalf << std::endl;
     if (!firstHalf|| firstHalf > 63
         || secondHalf < 1 || secondHalf > 63) isValidEmail = false;
     // проверка на длину и наличие @
@@ -55,35 +48,30 @@ int main()
         // цикл от начала до конца строки пока строка является email
     {
         isValidEmail = false;
-        // буквы, цифры знак «-» (дефис), точка
-        // точка не первый и не последний символ, не две подряд
+        // строка не email пока не доказано обратное 
         if (isalpha(checked[i]) || isdigit(checked[i])
             || checked[i] == '-')
+            // буквы, цифры знак «-» (дефис)
         {
             isValidEmail = true;
             
-            // std::cout << checked[i] << "=Isalpha,isdigit,-" << std::endl;
         }
         else if (checked[i] == '.' && checked[i+1] != '.')
         {
             isValidEmail = true;
-            
-            // std::cout << "Dot" << std::endl;
+            // точка и за ней не точка
         }
         if (!foundAt)
         {
             checkingFirstPart(checked[i]);
-            // std::cout << "checkingFirstPart" << std::endl;
+            // если не найдена @ то проверям символы первой части
+
         }
-        // если не найдена @ то проверям символы первой части
         else
+            // иначе проверяем вторую часть
         {
             checkingSecondPart(checked[i]);
-            // std::cout << "checkingSecondPart" << std::endl;
         }
-        // иначе проверяем вторую часть
-        
-        // std::cout << isValidEmail << "=isValidEmail" << std::endl;
 
     }
     std::cout << (isValidEmail ? "Yes" : "No") << std::endl;
