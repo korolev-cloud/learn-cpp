@@ -40,8 +40,8 @@ int main()
     std::cout << "Input e-mail address: "; std::cin >> checked;
     // if (checked.length() < 3) isValidEmail = false;
     // проверка на минимальное количество символов
-    int firstHalf = checked.find('@');
-    int secondHalf = checked.length() - firstHalf;
+    unsigned char firstHalf = checked.find('@');
+    unsigned char secondHalf = checked.length() - firstHalf;
     // нахождение длины первой и второй части email адреса
     
     // if (!firstHalf) isValidEmail = false;
