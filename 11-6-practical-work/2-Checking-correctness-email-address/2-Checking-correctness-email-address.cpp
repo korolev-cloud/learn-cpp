@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cctype>
 
 
@@ -27,13 +27,12 @@ void checkingFirstPart(char strFirst)
     // если нашли @ то поставить флажок
 }
 
+
 void checkingSecondPart(char strSecond)
 {
     if (strSecond == '@') isValidEmail = false;
     // если символ @ то isValidEmail = false
 }
-
-
 
 int main()
 {
