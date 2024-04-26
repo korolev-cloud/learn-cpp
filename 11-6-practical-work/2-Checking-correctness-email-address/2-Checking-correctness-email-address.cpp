@@ -80,6 +80,7 @@ int main()
     }
     std::cout << (isValidEmail ? "Yes" : "No") << std::endl;
     // вывод результата
+
 }
 
 /*
