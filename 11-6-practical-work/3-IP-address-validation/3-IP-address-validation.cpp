@@ -1,17 +1,51 @@
 ﻿#include <iostream>
+#include <cctype>
 
 bool isValidIP = true;
-// строка является IP
+// признак валидности IP
 
+std::string get_address_part(std::string str, int octet_position)
+{
+    std::string octet;
+    int octet_number = 0;
+    for (int j = 0; j < str.length(); j++)
+    {
+        if (str[j] == '.') {
+            // если проверяемый символ - .
+            if (j == 0 || j == str.length() - 1 || str[j + 1] == '.')
+                // если точка стоит в начале, конце или их две подряд
+            {
+                isValidIP = false;
+                break;
+            }
+            else octet_number += 1;
+        }
+        
+        else if (isdigit(str[j]))
+            // если проверяемый символ число
+        {
+            if (octet_number == octet_position) octet += str[j];
+            // если текущий октет - искомый
+        }
+        else 
+        {
+            isValidIP = false;
+            // если не подошло ни одно условие проверки, адрес не валидный
+            break;
+        }    
+    }
+    
+    return octet;
+}
 
 int main()
 {
     std::string checked;
     std::cout << "Input IP address: "; std::cin >> checked;
-    for (int i = 0; i < checked.length() && isValidIP; i++)
-        // проход по строке пока строка является IP
+    for (int i = 0; i < 4 && isValidIP; i++)
+        // проход по октетам пока строка валидна как IP
     {
-        isValidIP = false;
+        std::cout << get_address_part(checked, i);
     }
     
     std::cout << (isValidIP ? "Valid" : "Invalid") << std::endl;
