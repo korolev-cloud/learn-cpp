@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cctype>
 
 
@@ -17,6 +17,7 @@ void checkingFirstPart(char strFirst)
     for (int j = 0; j < validSymbols.length(); j++)
     {
         if (strFirst == validSymbols[j])
+            // если символ из списка то email валидный
         {
             isValidEmail = true;
             // если проверяемый символ в строке разрешенных
@@ -26,6 +27,7 @@ void checkingFirstPart(char strFirst)
     if (strFirst == '@') foundAt = true;
     // если проверяемый символ - @
 }
+
 
 void checkingSecondPart(char strSecond)
 {
@@ -69,6 +71,7 @@ int main()
         }
 
         else
+            // иначе проверяем вторую часть
         {
             checkingSecondPart(checked[i]);
             // иначе проверяем вторую часть
