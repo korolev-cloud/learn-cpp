@@ -38,6 +38,13 @@ std::string get_address_part(std::string str, int octet_position)
     return octet;
 }
 
+int checking_octet(std::string str_octet)
+{
+    int number;
+    number = atoi(str_octet.c_str());
+    return number;
+}
+
 int main()
 {
     std::string checked;
@@ -45,7 +52,10 @@ int main()
     for (int i = 0; i < 4 && isValidIP; i++)
         // проход по октетам пока строка валидна как IP
     {
-        std::cout << get_address_part(checked, i);
+        if (checking_octet(get_address_part(checked, i)) > 255)
+        {
+            isValidIP = false;
+        }
     }
     
     std::cout << (isValidIP ? "Valid" : "Invalid") << std::endl;
