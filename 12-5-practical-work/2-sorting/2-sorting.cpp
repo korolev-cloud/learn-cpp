@@ -2,7 +2,19 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    float numberList[15];
+    std::cout << "Input: ";
+    for (int i = 0; i < 15; i++)
+    {
+        std::cin >> numberList[i];
+    }
+
+    std::cout << "Output: ";
+    for (int i = 0; i < 15; i++)
+    {
+        std::cout << numberList[i] << " ";
+    }
+    
 }
 
 /*
