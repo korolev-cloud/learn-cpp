@@ -11,7 +11,7 @@ std::string get_address_part(std::string str, int octet_position)
     for (int j = 0; j < str.length(); j++)
     {
         if (str[j] == '.') {
-            // если проверяемый символ - .
+            // если проверяемый символ точка
             if (j == 0 || j == str.length() - 1 || str[j + 1] == '.')
                 // если точка стоит в начале, конце или их две подряд
             {
@@ -34,8 +34,19 @@ std::string get_address_part(std::string str, int octet_position)
             break;
         }    
     }
-    
+    if (octet_number < 3) isValidIP = false;
+    // если количество октетов меньше 4
+    if (octet.length() > 1 && octet[0] == '0') isValidIP = false;
+    // если лишние нули  
     return octet;
+}
+
+int checking_octet(std::string str_octet)
+{
+    int number;
+    number = atoi(str_octet.c_str());
+    // перевод строки в число
+    return number;
 }
 
 int main()
@@ -45,7 +56,10 @@ int main()
     for (int i = 0; i < 4 && isValidIP; i++)
         // проход по октетам пока строка валидна как IP
     {
-        std::cout << get_address_part(checked, i);
+        if (checking_octet(get_address_part(checked, i)) > 255)
+        {
+            isValidIP = false;
+        }
     }
     
     std::cout << (isValidIP ? "Valid" : "Invalid") << std::endl;
