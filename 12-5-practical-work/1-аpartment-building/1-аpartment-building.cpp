@@ -6,15 +6,24 @@
 int main()
 {
     std::string surname[10];
+    // массив списка фамилий
     for (int i = 0; i < 10; i++)
+        // цикл по списку фамилий
     {
         std::cin >> surname[i];
     }
     int flatNumber;
+    // номер квартиры
     for (int i = 0; i < 3; i++)
+        // цикл запроса фамилий по номерам квартир
     {
         std::cin >> flatNumber;
-        std::cout << surname[flatNumber];
+        if (flatNumber > 0 && flatNumber < 10)
+            std::cout << surname[flatNumber - 1] << std::endl;
+        else
+        {
+            std::cout << "Incorrect flat number" << std::endl;
+        }
     }
 }
 
