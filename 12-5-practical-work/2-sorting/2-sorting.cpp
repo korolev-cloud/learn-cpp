@@ -1,5 +1,21 @@
 ﻿#include <iostream>
 
+void bubblesort(float* l, float* r) {
+	int sz = r - l;
+	if (sz <= 1) return;
+	bool b = true;
+	while (b) {
+		b = false;
+		for (float* i = l; i + 1 < r; i++) {
+			if (*i < *(i + 1)) {
+				std::swap(*i, *(i + 1));
+				b = true;
+			}
+		}
+		r--;
+	}
+}
+
 int main()
 {
     float numberList[15];
@@ -8,6 +24,11 @@ int main()
     {
         std::cin >> numberList[i];
     }
+	
+	float* begin{ std::begin(numberList) };
+	float* end{ std::end(numberList) };
+
+	bubblesort(begin, end);
 
     std::cout << "Output: ";
     for (int i = 0; i < 15; i++)
