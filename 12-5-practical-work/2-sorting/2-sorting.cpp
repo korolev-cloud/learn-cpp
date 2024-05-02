@@ -1,8 +1,53 @@
-﻿#include <iostream>
+#include <iostream>
+
+void bubblesort(float* start, float* end) 
+{
+	int sz = end - start;
+	// определение размера массива
+	if (sz <= 1) return;
+	// выход из функции по достижении конца массива
+	bool b = true;
+	while (b) {
+		b = false;
+		for (float* i = start; i + 1 < end; i++) 
+		// цикл по элементам массива
+		{
+			if (*i < *(i + 1)) 
+			// если элемент массива с индексом i меньше значения справа
+			{
+				std::swap(*i, *(i + 1));
+				// поменять элементы массива местами
+				b = true;
+			}
+		}
+		end--;
+	}
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    const int SIZE = 15;
+	float numberList[SIZE];
+    std::cout << "Input: ";
+    for (int i = 0; i < SIZE; i++)
+    {
+        std::cin >> numberList[i];
+    }
+	
+	float* begin{ std::begin(numberList) };
+	// указатель на начало массива
+	float* end{ std::end(numberList) };
+	// указатель на элемент за последним элементом массива
+
+	bubblesort(begin, end);
+	// выполнение сортировки массива
+
+    std::cout << "Output: ";
+    for (int i = 0; i < 15; i++)
+    {
+        std::cout << numberList[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 /*
