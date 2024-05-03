@@ -2,16 +2,22 @@
 #include <cassert>
 
 float travelTime(float distance, float speed)
+// функция вычисления времени в пути по расстоянию и скорости
 {
     assert(speed > 0);
+    // вызвать падение, если скорость меньше или равна 0
     return distance / speed;
+    // вернуть скорость
 }
 
 int main() {
     float distance, speed;
     std::cout << "Input distance:\t"; std::cin >> distance;
+    // запросить расстояние в переменную distance
     std::cout << "Input speed:\t"; std::cin >> speed;
+    // запросить скорость в переменную speed
     std::cout << "Time:\t" << travelTime(distance, speed) << std::endl;
+    // вычислить время и вывести на экран
     return 0;
 }
 
