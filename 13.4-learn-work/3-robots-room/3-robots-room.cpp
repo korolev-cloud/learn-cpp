@@ -14,13 +14,9 @@ int main()
 		cin >> num;
 		assert(int(num));
 		vec.push_back(num);
-
+		if (vec.capacity() - vec.size() == 2) cout << "There are 2 empty seats left" << endl;
 	}
-	for (int i = 0; i < vec.size(); i++)
-	{
-		cout << vec[i] << " ";
-	}
-	cout << endl;
+	
 }
 
 /* Роботы приходят в очередь и называют(вводят с клавиатуры) свои порядковые номера (целые положительные). 
