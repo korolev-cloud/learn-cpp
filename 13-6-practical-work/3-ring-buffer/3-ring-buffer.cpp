@@ -1,24 +1,41 @@
 ﻿#include <iostream>
 #include <vector>
+#include <cctype>
 
 int main()
 {
     std::vector<int> db(20);
+    // создаем вектор на 20 элементов
     int number = 0;
-    while (true)
-    {
+    while (true) {
         std::cout << "input number: ";
         std::cin >> number;
-        if (number != -1) db.push_back(number);
-        if (number == -1) {
+        // получаем значение
+        if (std::cin.fail()) 
+        {
+            // проверка на число
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Input not number!" << std::endl;
+        }
+        
+        else if (number == -1) {
+            // при вводе - 1 выводми содержимое вектора
             std::cout << "output: ";
             for (int i = 0; i < db.size(); i++)
                 std::cout << " " << db[i];
             std::cout << std::endl;
         }
         
+        else
+        {
+            for (int i = 0; i < db.size() - 1; i++)
+                std::swap(db[i], db[i + 1]);
+                // меняем местами элемент в позиции i и следующий за ним
+            db[db.size() - 1] = number;
+            // добавляем в конец вектора значение number
+        }
     }
-    
 }
 
 /*
