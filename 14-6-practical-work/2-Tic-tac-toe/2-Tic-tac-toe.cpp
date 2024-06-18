@@ -1,20 +1,59 @@
 ﻿#include <iostream>
 
+/*bool checkWin(char field)
+{
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            
+        }
+    }
+}*/
+
 int main()
 {
     char field[3][3];
+    char gamerName = 'X';
+    int coordinateX;
+    int coordinateY;
+    int counter = 0;
+    
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             field[i][j] = ' ';
         }
     }
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            std::cout << field[i][j];
-            if (j < 2) std::cout << "|";
+
+    while (counter < 9)
+    {
+        std::cout << "Input x y gamer " << gamerName << std::endl;
+        std::cin >> coordinateX >> coordinateY;
+        std::cout << std::endl;
+        if ((coordinateX < 0) | (coordinateX > 2) | (coordinateY < 0) | (coordinateY > 2))
+        {
+            std::cout << "Incorrect coordinate" << std::endl;
         }
-        if (i < 2) std::cout << std::endl << "-----" << std::endl;
+        else if (field[coordinateX][coordinateY] != ' ')
+        {
+            std::cout << "This place is occupied, specify other coordinates" << std::endl;
+        }
+        else {
+            field[coordinateX][coordinateY] = gamerName;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    std::cout << field[i][j];
+                    if (j < 2) std::cout << "|";
+                }
+                if (i < 2) std::cout << std::endl << "-----" << std::endl;
+            }
+            std::cout << std::endl; std::cout << std::endl;
+            if (gamerName == 'X') gamerName = 'O';
+            else gamerName = 'X';
+            counter++;
+        }
+        
     }
+    
+
 }
 
 /*
