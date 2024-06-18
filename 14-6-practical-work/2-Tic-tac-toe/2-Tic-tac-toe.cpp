@@ -1,13 +1,13 @@
 ﻿#include <iostream>
 
-/*bool checkWin(char field)
+char checkWin(char (&field)[3][3])
 {
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            
-        }
+        if (field[i][0] == field[i][1] && field[i][0] == field[i][2]) return field[i][0];
+        else if (field[0][i] == field[1][i] && field[0][i] == field[2][i]) return field[0][i];
+        else return ' ';
     }
-}*/
+}
 
 int main()
 {
@@ -48,6 +48,11 @@ int main()
             std::cout << std::endl; std::cout << std::endl;
             if (gamerName == 'X') gamerName = 'O';
             else gamerName = 'X';
+            char win = checkWin(field);
+            if (win != ' ') {
+                std::cout << "Winner " << win << std::endl;
+                break;
+            }
             counter++;
         }
         
