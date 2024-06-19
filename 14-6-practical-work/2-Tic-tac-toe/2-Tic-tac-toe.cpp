@@ -9,6 +9,7 @@ char checkWin(char (&field)[3][3])
         else if (field[0][2] == field[1][1] && field[0][2] == field[2][0]) return field[0][2]; 
     }
     return ' ';
+    // функция нахождения победителя
 }
 
 int main()
@@ -24,6 +25,7 @@ int main()
             field[i][j] = ' ';
         }
     }
+    // заполнение массива пробелами
 
     while (counter < 9)
     {
@@ -34,10 +36,12 @@ int main()
         {
             std::cout << "Incorrect coordinate" << std::endl;
         }
+        // проверка координат на выход за пределы поля
         else if (field[coordinateX][coordinateY] != ' ')
         {
             std::cout << "This place is occupied, specify other coordinates" << std::endl;
         }
+        // проверка координат на занятую позицию
         else {
             field[coordinateX][coordinateY] = gamerName;
             for (int i = 0; i < 3; i++) {
@@ -47,14 +51,18 @@ int main()
                 }
                 if (i < 2) std::cout << std::endl << "-----" << std::endl;
             }
+            // вывод поля в терминал
             std::cout << std::endl; std::cout << std::endl;
             if (gamerName == 'X') gamerName = 'O';
             else gamerName = 'X';
+            // переключение игрока
             char win = checkWin(field);
+            // поиск победителя
             if (win != ' ') {
                 std::cout << "Winner " << win << std::endl;
                 break;
             }
+            // выход из цикла при нахождении победителя
             counter++;
         }
         
