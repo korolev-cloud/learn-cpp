@@ -10,9 +10,26 @@ int main()
             std::cin >> matrixA[i][j];
         }
     }
+    std::cout << std::endl;
+    std::cout << "Input matrix B: \n";
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            std::cin >> matrixB[i][j];
+        }
+    }
+    std::cout << std::endl;
+
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             std::cout << matrixA[i][j] << "\t";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            std::cout << matrixB[i][j] << "\t";
         }
         std::cout << std::endl;
     }
