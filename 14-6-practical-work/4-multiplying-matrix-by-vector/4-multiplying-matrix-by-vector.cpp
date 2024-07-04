@@ -5,7 +5,7 @@ int main()
 {
     std::vector<float> vectorB(4);
     float matrixA[4][4];
-    std::vector<float> vectorC;
+    std::vector<float> vectorC(4);
     std::cout << "Input matrix A:\n";
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
@@ -18,14 +18,14 @@ int main()
     }
     std::cout << std::endl;
     for (int i = 0; i < 4; i++) {
+        float accumulator = 0.f;
         for (int j = 0; j < 4; j++) {
-            std::cout << matrixA[i][j] << "\t";
+            accumulator += matrixA[i][j] * vectorB[i];
         }
-        std::cout << std::endl;
+        vectorC[i] = accumulator;
     }
-    std::cout << std::endl;
     for (int i = 0; i < 4; i++) {
-        std::cout << vectorB[i] << "\t";
+        std::cout << vectorC[i] << "\t";
     }
 }
 
