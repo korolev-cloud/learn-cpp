@@ -1,21 +1,26 @@
 ﻿#include <iostream>
 
 bool comparison(int(&matrixA)[4][4], int(&matrixB)[4][4]) {
+    // функция проверки равенства матриц
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (matrixA[i][j] != matrixB[i][j]) {
+                // если значение ячейки матрицы А не равно значению матрицы В 
+                // то матрицы не равны - возвращаем false
                 std::cout << "The matrices are not equal!";
                 std::cout << std::endl;
                 return false;
             }
         }
     }
-    return true;
 }
 
 void diagonal(int(&matrixA)[4][4]) {
+    // функция приведения матрицы к диагональной
+    std::cout << "Here is the diagonal matrix!" << std::endl;
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
+            // зануляем все значения ячеек лежащие вне главной диагонали
             if (i != j) matrixA[i][j] = 0;
             std::cout << matrixA[i][j] << "\t";
         }
@@ -27,25 +32,25 @@ int main()
 {
     int matrixA[4][4];
     int matrixB[4][4];
-    std::cout << "Input matrix A: \n";
+    std::cout << "Input integer matrix A:\n";
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             std::cin >> matrixA[i][j];
         }
     }
     std::cout << std::endl;
-    std::cout << "Input matrix B: \n";
+    std::cout << "Input integer matrix B:\n";
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             std::cin >> matrixB[i][j];
         }
-    }
-        
+    }   
     std::cout << std::endl;
     if (comparison(matrixA, matrixB)) {
+        // если функция вернула true
         diagonal(matrixA);
-    }
-        
+        // приводим матрицу А к диагональной
+    }   
 }
 
 /*
