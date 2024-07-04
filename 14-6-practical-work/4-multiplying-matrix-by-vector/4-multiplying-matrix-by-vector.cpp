@@ -25,7 +25,7 @@ int main()
         vectorC[i] = accumulator;
     }
     for (int i = 0; i < 4; i++) {
-        std::cout << vectorC[i] << "\t";
+        std::cout << vectorC[i] << " ";
     }
 }
 
