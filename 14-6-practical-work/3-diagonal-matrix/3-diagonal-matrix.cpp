@@ -1,5 +1,28 @@
 ﻿#include <iostream>
 
+bool comparison(int(&matrixA)[4][4], int(&matrixB)[4][4]) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (matrixA[i][j] != matrixB[i][j]) {
+                std::cout << "The matrices are not equal!";
+                std::cout << std::endl;
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void diagonal(int(&matrixA)[4][4]) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (i != j) matrixA[i][j] = 0;
+            std::cout << matrixA[i][j] << "\t";
+        }
+        std::cout << std::endl;
+    }
+}
+
 int main()
 {
     int matrixA[4][4];
@@ -17,22 +40,12 @@ int main()
             std::cin >> matrixB[i][j];
         }
     }
+        
     std::cout << std::endl;
-
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            std::cout << matrixA[i][j] << "\t";
-        }
-        std::cout << std::endl;
+    if (comparison(matrixA, matrixB)) {
+        diagonal(matrixA);
     }
-    std::cout << std::endl;
-
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            std::cout << matrixB[i][j] << "\t";
-        }
-        std::cout << std::endl;
-    }
+        
 }
 
 /*
