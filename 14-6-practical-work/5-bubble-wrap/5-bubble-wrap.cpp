@@ -1,13 +1,22 @@
 ﻿#include <iostream>
 
+void initialize(bool status, bool (&shell)[12][12]) {
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 12; j++) {
+            shell[i][j] = status;
+        }
+    }
+}
+
 int main()
 {
     bool shell[12][12];
+    initialize(true, shell);
     for (int i = 0; i < 12; i++) {
         for (int j = 0; j < 12; j++) {
-            std::cout << shell[i][j];
-            //shell[i][j] = true;
+            std::cout << shell[i][j] << "\t";
         }
+        std::cout << std::endl;
     }
 }
 
