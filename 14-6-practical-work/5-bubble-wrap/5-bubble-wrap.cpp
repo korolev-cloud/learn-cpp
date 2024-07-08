@@ -1,22 +1,63 @@
 ﻿#include <iostream>
+#define FIELD_SIZE 12
 
-void initialize(bool status, bool (&shell)[12][12]) {
-    for (int i = 0; i < 12; i++) {
-        for (int j = 0; j < 12; j++) {
+void initShell(bool status, bool (&shell)[FIELD_SIZE][FIELD_SIZE]) {
+    // передаем в функцию статус и указатель на массив
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < FIELD_SIZE; j++) {
             shell[i][j] = status;
+            // меняем значение ячейки 
         }
     }
 }
 
-int main()
-{
-    bool shell[12][12];
-    initialize(true, shell);
-    for (int i = 0; i < 12; i++) {
-        for (int j = 0; j < 12; j++) {
-            std::cout << shell[i][j] << "\t";
+void showShell(bool(&shell)[FIELD_SIZE][FIELD_SIZE]) {
+    // вывод содержимого массива
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < FIELD_SIZE; j++) {
+            if (shell[i][j] == true) std::cout << "o";
+            else std::cout << "x";
         }
         std::cout << std::endl;
+    }
+}
+
+int popShell(bool(&shell)[FIELD_SIZE][FIELD_SIZE], int x1, int y1, int x2, int y2) {
+    int counter = 0; // счетчик лопнутых пузырьков
+    for (int i = x1-1; i < x2; i++) {
+        for (int j = y1-1; j < y2; j++) {
+            shell[i][j] = false;
+            // меняем состояние ячейки
+            showShell(shell);
+            // вывод пленки
+            std::cout << "Pop!" << std::endl;
+            counter++;
+        }
+    }
+    return counter; // возвращаем количество лопнутых пузырьков
+}
+
+int main()
+{
+    bool shell[FIELD_SIZE][FIELD_SIZE];
+    initShell(true, shell);
+    int burstСounter = FIELD_SIZE*FIELD_SIZE;
+    int x1, x2, y1, y2;
+    while (burstСounter)
+    {
+        std::cout << "Entered coordinate to burst (format x1 y1 x2 y2): ";
+        std::cin >> x1 >> y1 >> x2 >> y2;
+        if (x1 > 0 && x1 <= FIELD_SIZE && x2 > 0 && x2 <= FIELD_SIZE
+            && y1 > 0 && y1 <= FIELD_SIZE && y2 > 0 && y2 <= FIELD_SIZE) {
+            // если введенные данные содержат координаты внутри поля
+            int popBubbles = popShell(shell, x1, y1, x2, y2);
+            burstСounter -= popBubbles;
+        }
+        else
+        {
+            std::cout << std::endl << "Mistake! The entered range is out of the field!";
+            std::cout << std::endl;
+        }
     }
 }
 
