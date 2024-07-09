@@ -3,19 +3,26 @@
 
 int main()
 {
-    int number = 0;
-    int digits[FIELD_SIZE][FIELD_SIZE];
+    int number = 0; // счетчик
+    int digits[FIELD_SIZE][FIELD_SIZE]; //создаем пустой массив
+    int multiplier = FIELD_SIZE - 1; //переменная для смены знака при переходе на следующую строку
     for (int i = 0; i < FIELD_SIZE; ++i) {
         for (int j = 0; j < FIELD_SIZE; ++j) {
-            std::cout << digits[i][j];
-            number++;
+            digits[i][std::abs(((multiplier - (FIELD_SIZE - 1)) / 2) + j)] = number;
+            // заполняем массив-нечетные строки слева направо, четные наоборот
+            number++; // увеличиваем счетчик
         }
+        for (int j = 0; j < FIELD_SIZE; ++j) {
+            std::cout << digits[i][j] << " ";
+            if (digits[i][j] < 10) std::cout << " "; // добавляем пробел для красоты таблицы
+        }
+        multiplier *= -1; //меняем знак
         std::cout << std::endl;
     }
 }
 
 /*
-
+ 
 Есть двумерный массив целых чисел размером 5 на 5 элементов. 
 Его надо инициализировать и отобразить на экране. Особенность именно в способе этой инициализации. 
 Элементы должны быть инициализированы не последовательно, а змейкой: 
