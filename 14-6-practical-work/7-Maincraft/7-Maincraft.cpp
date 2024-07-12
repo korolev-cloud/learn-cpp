@@ -5,12 +5,12 @@
 int main()
 {
     char blockHeight;
-    char world[FIELD_SIZE][FIELD_SIZE][1];
+    char world[FIELD_SIZE][FIELD_SIZE][1]; 
     std::cout << "input matrix of heights: "; 
     for (int i = 0; i < FIELD_SIZE; i++) {
         for (int j = 0; j < FIELD_SIZE; j++) {
             std::cin >> blockHeight;
-            world[i][j][0] = blockHeight;
+            world[i][j][0] = blockHeight; // вносим данные о высоте
         }
     }
 
@@ -22,6 +22,7 @@ int main()
         for (int i = 0; i < FIELD_SIZE; i++) {
             for (int j = 0; j < FIELD_SIZE; j++) {
                 std::cout << (world[i][j][0] >= slice) ? true : false;
+                // печать 1 если высота среза больше значения в ячейке 
                 std::cout << ' ';
             }
             std::cout << std::endl;
