@@ -1,14 +1,17 @@
-﻿#include <iostream>
+#include <iostream>
 
-void dockShip(bool (&field), int x, y){
-
-}
-
-void dockShipAll(bool (&field), int x, y){
+void dockShip(bool field[][10], int x, int y){
+    // расстановка однопалубных кораблей
 
 }
 
-void killShip (bool (&field), int x, y) {
+void dockShipAll(bool field, int x, int y){
+    // расстановка остальных кораблей
+
+}
+
+void killShip (bool field, int x, int y) {
+    // выстрел по кораблям
 
 }
 
@@ -16,13 +19,23 @@ int main()
 {
     bool field_A[10][10]; // объявляем поле игрока А
     bool field_B[10][10]; // объявляем поле игрока В
-    char field = &field_A;
+    for(int i=0; i<4; i++){
+        // инициализируем поле нулями
+        for (int j=0; j<4; j++){
+            field_A[i][j] = false;
+        }
+    }
     char currentGamer = 'A';
-    while ()
-    std::cout << "Enter the coordinates of the four 
-        single-deck ships separated by a space (ex. 0..9,0..9):\n";
+    std::cout << "Gamer A. Enter the coordinates of the four single-deck ships separated by a space (ex. 0..9 0..9):\n";
     for (int i=0; i<4; i++){
-        std::cin >> 
+        int x, y;
+        std::cin >> x >> y;
+        field_A[x][y] = true;
+    }
+    for(int i=0; i<4; i++){
+        for (int j=0; j<4; j++){
+            std::cout << field_A[i][j];
+        }
     }
 
 }
