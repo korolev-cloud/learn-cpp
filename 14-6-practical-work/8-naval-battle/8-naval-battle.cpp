@@ -19,23 +19,24 @@ int main()
 {
     bool field_A[10][10]; // объявляем поле игрока А
     bool field_B[10][10]; // объявляем поле игрока В
-    for(int i=0; i<4; i++){
+    for(int i = 0; i < 10; i++){
         // инициализируем поле нулями
-        for (int j=0; j<4; j++){
+        for (int j = 0; j < 10; j++){
             field_A[i][j] = false;
         }
     }
     char currentGamer = 'A';
     std::cout << "Gamer A. Enter the coordinates of the four single-deck ships separated by a space (ex. 0..9 0..9):\n";
-    for (int i=0; i<4; i++){
+    for (int i = 0; i < 4; i++){
         int x, y;
         std::cin >> x >> y;
         field_A[x][y] = true;
     }
-    for(int i=0; i<4; i++){
-        for (int j=0; j<4; j++){
+    for(int i = 0; i < 10; i++){
+        for (int j= 0; j < 10; j++){
             std::cout << field_A[i][j];
         }
+        std::cout << std::endl;
     }
 
 }
