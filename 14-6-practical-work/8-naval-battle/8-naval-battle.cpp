@@ -1,10 +1,30 @@
 ﻿#include <iostream>
 
+void dockShip(bool (&field), int x, y){
+
+}
+
+void dockShipAll(bool (&field), int x, y){
+
+}
+
+void killShip (bool (&field), int x, y) {
+
+}
+
 int main()
 {
-    bool field_A[10][10];
-    bool field_B[10][10];
-    std::cout << "Hello World!\n";
+    bool field_A[10][10]; // объявляем поле игрока А
+    bool field_B[10][10]; // объявляем поле игрока В
+    char field = &field_A;
+    char currentGamer = 'A';
+    while ()
+    std::cout << "Enter the coordinates of the four 
+        single-deck ships separated by a space (ex. 0..9,0..9):\n";
+    for (int i=0; i<4; i++){
+        std::cin >> 
+    }
+
 }
 
 /*
