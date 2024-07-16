@@ -1,7 +1,30 @@
 #include <iostream>
 
-void dockShip(bool field[][10], int x, int y){
+void dockShip(bool field[][10], char gamer){
     // расстановка однопалубных кораблей
+    std::cout << "Gamer " << gamer 
+        << ".Enter the coordinates of the four single - deck ships separated by a space(ex. 0..9 0..9) :\n";
+    
+    for (int i = 0; i < 4; i++) {
+        int x, y;
+        std::cin >> x >> y;
+        
+        if (!field[x][y]) field[x][y] = true;
+        else {
+            std::cout << "\nError. Ship " << x << " " << y << " is already in this place.\n";
+            i--;
+        }
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < 10; i++) {
+        // выводим поле с кораблями текущего игрока
+        for (int j = 0; j < 10; j++) {
+            std::cout << field[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 
 }
 
@@ -23,21 +46,16 @@ int main()
         // инициализируем поле нулями
         for (int j = 0; j < 10; j++){
             field_A[i][j] = false;
+            field_B[i][j] = false;
         }
     }
     char currentGamer = 'A';
-    std::cout << "Gamer A. Enter the coordinates of the four single-deck ships separated by a space (ex. 0..9 0..9):\n";
-    for (int i = 0; i < 4; i++){
-        int x, y;
-        std::cin >> x >> y;
-        field_A[x][y] = true;
-    }
-    for(int i = 0; i < 10; i++){
-        for (int j= 0; j < 10; j++){
-            std::cout << field_A[i][j];
-        }
-        std::cout << std::endl;
-    }
+    
+    dockShip(field_A, currentGamer);
+    currentGamer = 'B';
+    dockShip(field_B, currentGamer);
+
+    
 
 }
 
