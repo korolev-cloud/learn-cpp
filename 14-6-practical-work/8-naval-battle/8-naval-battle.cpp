@@ -76,16 +76,19 @@ void shipPlacementAll(bool field[][10], int gamer){
                     if (x2 - x1 == 1 || y2 - y1 == 1) {
                         twoDock--;
                         shipPlacement(field, x1, y1, x2, y2);
+                        std::cout << "Two dock added" << std::endl;
                         // размещаем двухпалубник
                     }
                     else if (x2 - x1 == 2 || y2 - y1 == 2) {
                         threeDock--;
                         shipPlacement(field, x1, y1, x2, y2);
+                        std::cout << "Three dock added" << std::endl;
                         // размещаем трехпалубник
                     }
                     else if (x2 - x1 == 3 || y2 - y1 == 3) {
                         fourDock--;
                         shipPlacement(field, x1, y1, x2, y2);
+                        std::cout << "Four dock added" << std::endl;
                         // размещаем четырехпалубник
                     }
                 }
@@ -95,7 +98,9 @@ void shipPlacementAll(bool field[][10], int gamer){
                         std::cout << "The coordinates are busy. Try again!"
                             << std::endl; break;
                     }
+                    oneDock--;
                     shipPlacement(field, x1, y1, x2, y2);
+                    std::cout << "One dock added" << std::endl;
                     // размещаем однопалубник
                 }
             }
