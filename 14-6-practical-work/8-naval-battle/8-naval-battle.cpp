@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cctype>
 
-void shipPlacement(bool field[][10], char x1, char x2, char y1, char y2){
+void shipPlacement(bool field[][10], char x1, char y1, char x2, char y2){
     // размещение одного корабля
     if (x2 < 10) {
         for (int i = x1; i <= x2; i++) {
@@ -10,7 +10,7 @@ void shipPlacement(bool field[][10], char x1, char x2, char y1, char y2){
             }
         }
     }
-    else field[x1][y1];
+    else field[x1][y1] = 1;
 }
 
 void shipPlacementAll(bool field[][10], int gamer) {
@@ -19,7 +19,7 @@ void shipPlacementAll(bool field[][10], int gamer) {
 
     //bool isValidCoordinates = true;
     int x1 = 10, x2 = 10, y1 = 10, y2 = 10;
-    char oneDock = 4, twoDock = 3, threeDock = 2, fourDock = 1;
+    int oneDock = 4, twoDock = 3, threeDock = 2, fourDock = 1;
 
     while (oneDock) {
         // цикл пока не расставлены однопалубные корабли
@@ -31,7 +31,7 @@ void shipPlacementAll(bool field[][10], int gamer) {
         for (int i = 0; i < l; i++) {
             if (i == 0) {
                 if (isdigit(coordinates[i]))
-                    x1 = (int) coordinates[i];
+                    x1 = coordinates[i] - 48;
                 // первое число это x1
                 else {
                     std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
@@ -40,7 +40,7 @@ void shipPlacementAll(bool field[][10], int gamer) {
             }
             else if (i == 2)
                 if (isdigit(coordinates[i]))
-                    y1 == (int) coordinates[i];
+                    y1 = coordinates[i] - 48;
             // второе число это y1
                 else {
                     std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
@@ -48,7 +48,7 @@ void shipPlacementAll(bool field[][10], int gamer) {
                 }
         }
         if (x1 < 10 && y1 < 10) {
-            if (!field[x1][y1]) {
+            if (field[x1][y1] != 1) {
                 //если место не занято, размещаем однопалубник
                 oneDock--;
                 shipPlacement(field, x1, y1, x2, y2);
@@ -124,17 +124,18 @@ void shipPlacementAll(bool field[][10], int gamer) {
 
             }
         */
-        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 
-        for (int i = 0; i < 10; i++) {
-            // выводим поле с кораблями текущего игрока
-            for (int j = 0; j < 10; j++) {
-                std::cout << field[i][j] << " ";
-            }
-            std::cout << std::endl;
+    for (int i = 0; i < 10; i++) {
+        // выводим поле с кораблями текущего игрока
+        for (int j = 0; j < 10; j++) {
+            std::cout << field[i][j] << " ";
         }
         std::cout << std::endl;
     }
+    std::cout << std::endl;
+    
 }
 
 void killShip (bool field) {
