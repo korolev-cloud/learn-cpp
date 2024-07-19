@@ -1,26 +1,42 @@
 #include <iostream>
 #include <cctype>
 
-void shipPlacement(bool field[][10], char x1, char y1, char x2, char y2){
+void shipPlacement(bool field[][10], int x1, int y1, int x2, int y2){
     // размещение одного корабля
     if (x2 < 10) {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                field[i][j] = true;
+                field[i][j] = 1;
             }
         }
     }
     else field[x1][y1] = 1;
 }
 
+void printField(bool field[][10]) {
+    std::cout << "\n    ";
+    for (int i = 0; i < 10; i++)  std::cout << i << " ";
+    std::cout << "\n\n";
+    for (int i = 0; i < 10; i++) {
+        std::cout << i << "   ";
+        // выводим поле с кораблями текущего игрока
+        for (int j = 0; j < 10; j++) {
+            std::cout << field[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 void shipPlacementAll(bool field[][10], int gamer) {
     // расстановка кораблей
     // std::cout << "Gamer " << gamer << ".Enter the coordinates separated by a comma: \n";
+    printField(field);
 
     //bool isValidCoordinates = true;
     int x1 = 10, x2 = 10, y1 = 10, y2 = 10;
     int oneDock = 4, twoDock = 3, threeDock = 2, fourDock = 1;
-
+    /*
     while (oneDock) {
         // цикл пока не расставлены однопалубные корабли
         std::cout << "Gamer " << gamer << ".Enter the coordinates of the four single-deck ships: \n";
@@ -52,71 +68,15 @@ void shipPlacementAll(bool field[][10], int gamer) {
                 //если место не занято, размещаем однопалубник
                 oneDock--;
                 shipPlacement(field, x1, y1, x2, y2);
-                std::cout << "One one-deck ship is installed! Left: " << oneDock << "\n";
+                if (oneDock) std::cout << "One one-deck ship is installed! Left: " << oneDock << "\n";
             }
             else {
                 std::cout << "The coordinates are busy. Try again!\n";
             }
         }
     }
-    /*
-    
-        if (l < 7 && isdigit(coordinates[i])) {
-            // координаты других кораблей
-            switch (i) {
-            case 0:
-                x1 = coordinates[i];
-                break;
-            case 2:
-                y1 = coordinates[i];
-                break;
-            case 4:
-                x2 = coordinates[i];
-                break;
-            case 6:
-                y2 = coordinates[i];
-                break;
-            }
-            }
-        else
-            std::cout << "Incorrect coordinates. Try again!" << std::endl;
-
-            if (x1 < 10 && y1 < 10) {
-                if (x2 < 10 && y2 < 10) {
-                    for (int i2 = x1; i2 < x2; i2++) {
-                        for (int j2 = y1; j2 < y2; j2++) {
-                            if (field[i2][j2] == true) {
-                                std::cout << "The coordinates are busy. Try again!"
-                                    << std::endl;
-                                i2 = x2;
-                                break;
-                            }
-                        }
-                    }
-                    if (x2 - x1 == 1 || y2 - y1 == 1) {
-                        twoDock--;
-                        shipPlacement(field, x1, y1, x2, y2);
-                        std::cout << "Two dock added" << std::endl;
-                        // размещаем двухпалубник
-                    }
-                    else if (x2 - x1 == 2 || y2 - y1 == 2) {
-                        threeDock--;
-                        shipPlacement(field, x1, y1, x2, y2);
-                        std::cout << "Three dock added" << std::endl;
-                        // размещаем трехпалубник
-                    }
-                    else if (x2 - x1 == 3 || y2 - y1 == 3) {
-                        fourDock--;
-                        shipPlacement(field, x1, y1, x2, y2);
-                        std::cout << "Four dock added" << std::endl;
-                        // размещаем четырехпалубник
-                    }
-                }
-
-            }
-    }
-    
     */
+    printField(field);
 
     while (twoDock) {
         // цикл пока не расставлены однопалубные корабли
@@ -170,20 +130,22 @@ void shipPlacementAll(bool field[][10], int gamer) {
             }
         }
         if (x1 < 10 && y1 < 10 && x2 < 10 && y2 < 10) {
-            for (int i2 = x1; i2 < x2; i2++) {
-                for (int j2 = y1; j2 < y2; j2++) {
-                    if (field[i2][j2] != 1) {
-                        //если место не занято, размещаем двухпалубник
-                        twoDock--;
-                        shipPlacement(field, x1, y1, x2, y2);
-                        std::cout << "One two-deck ship is installed! Left: " << oneDock << "\n";
-                    }
-                    else {
+            bool isValidCoordinate = true;
+            for (int i2 = x1; i2 <= x2 && isValidCoordinate; i2++) {
+                for (int j2 = y1; j2 <= y2; j2++) {
+                    if (field[i2][j2]) {
                         std::cout << "The coordinates are busy. Try again!\n";
+                        isValidCoordinate = false;
+                        break;
                     }
                 }
             }
-            
+            if (isValidCoordinate) {
+                //если место не занято, размещаем двухпалубник
+                twoDock--;
+                shipPlacement(field, x1, y1, x2, y2);
+                if (twoDock) std::cout << "One two-deck ship is installed! Left: " << twoDock << "\n";
+            }
         }
     }
 
@@ -196,17 +158,7 @@ void shipPlacementAll(bool field[][10], int gamer) {
 
     }
 
-
-    std::cout << std::endl;
-
-    for (int i = 0; i < 10; i++) {
-        // выводим поле с кораблями текущего игрока
-        for (int j = 0; j < 10; j++) {
-            std::cout << field[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+    printField(field);
     
 }
 
