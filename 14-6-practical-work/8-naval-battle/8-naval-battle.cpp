@@ -32,14 +32,20 @@ void printField(bool field[][10], int gamer) {
 void shipPlacementAll(bool field[][10], int gamer) {
 
     int x1 = 10, x2 = 10, y1 = 10, y2 = 10;
-    int oneDock = 4, twoDock = 3, threeDock = 2, fourDock = 1;
-    while (oneDock) {
+    int oneDeck = 4, twoDeck = 3, threeDeck = 2, fourDeck = 1;
+    printField(field, gamer);
+
+    while (oneDeck) {
         // цикл пока не расставлены однопалубные корабли
-        std::cout << "Enter the coordinates of the four single-deck ships: \n";
+        std::cout << "Enter the coordinates of the " << oneDeck << " one deck ships : \n";
 
         std::string coordinates;
         std::cin >> coordinates;
         int l = coordinates.length();
+        if (l > 3) {
+            std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
+            continue;
+        }
         for (int i = 0; i < l; i++) {
             if (i == 0) {
                 if (isdigit(coordinates[i]))
@@ -62,9 +68,9 @@ void shipPlacementAll(bool field[][10], int gamer) {
         if (x1 < 10 && y1 < 10) {
             if (field[x1][y1] != 1) {
                 //если место не занято, размещаем однопалубник
-                oneDock--;
+                oneDeck--;
                 shipPlacement(field, x1, y1, x2, y2);
-                if (oneDock) std::cout << "One one-deck ship is installed! Left: " << oneDock << "\n";
+                // if (oneDeck) std::cout << "One one-deck ship is installed! Left: " << oneDeck << "\n";
             }
             else {
                 std::cout << "The coordinates are busy. Try again!\n";
@@ -74,14 +80,14 @@ void shipPlacementAll(bool field[][10], int gamer) {
     
     printField(field, gamer);
 
-    while (twoDock) {
+    while (twoDeck) {
         // цикл пока не расставлены двухпалубные корабли
-        std::cout << "Enter the coordinates of the three two-deck ships: \n";
+        std::cout << "Enter the coordinates of the " << twoDeck << " two deck ships : \n";
 
         std::string coordinates;
         std::cin >> coordinates;
         int l = coordinates.length();
-        if (l < 4) {
+        if (l < 4 || l > 7) {
             std::cout << "Incorrect coordinates! Try again! \n";
             continue;
         }
@@ -144,28 +150,30 @@ void shipPlacementAll(bool field[][10], int gamer) {
             }
             if (decking != 2) {
                 // проверяем количество палуб по координатам
-                std::cout << "\nThe coordinates are busy. Try again!\n";
+                std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
                 isValidCoordinate = false;
             }
             if (isValidCoordinate) {
                 //если место не занято и палуб сколько нужно, размещаем корабль
-                twoDock--;
+                twoDeck--;
                 shipPlacement(field, x1, y1, x2, y2);
-                std::cout << "One two-deck ship is installed!";
-                if (twoDock) std::cout << " Left: " << twoDock << "\n";
+                // std::cout << "One two-deck ship is installed!";
+                // if (twoDeck) std::cout << " Left: " << twoDeck << "\n";
             }
         }
     }
 
+    printField(field, gamer);
+
     
-    while (threeDock) {
+    while (threeDeck) {
         // цикл пока не расставлены трехпалубные корабли
-        std::cout << "Enter the coordinates of the two three-deck ships: \n";
+        std::cout << "Enter the coordinates of the " << threeDeck << " three deck ships : \n";
 
         std::string coordinates;
         std::cin >> coordinates;
         int l = coordinates.length();
-        if (l < 4) {
+        if (l < 4 || l > 7) {
             std::cout << "Incorrect coordinates! Try again! \n";
             continue;
         }
@@ -228,28 +236,31 @@ void shipPlacementAll(bool field[][10], int gamer) {
             }
             if (decking != 3) {
                 // проверяем количество палуб по координатам
-                std::cout << "\nThe coordinates are busy. Try again!\n";
+                std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
                 isValidCoordinate = false;
             }
             if (isValidCoordinate) {
                 //если место не занято и палуб сколько нужно, размещаем корабль
-                threeDock--;
+                threeDeck--;
                 shipPlacement(field, x1, y1, x2, y2);
-                std::cout << "One two-deck ship is installed!";
-                if (threeDock) std::cout << " Left: " << threeDock << "\n";
+                // std::cout << "One two-deck ship is installed!";
+                // if (threeDeck) std::cout << " Left: " << threeDeck << "\n";
             }
         }
     }
 
-    while (fourDock)
+    printField(field, gamer);
+
+
+    while (fourDeck)
     {
         // цикл пока не расставлен четырехпалубный корабль
-        std::cout << "Enter the coordinates of the one four-deck ships: \n";
+        std::cout << "Enter the coordinates of the " << fourDeck << " four deck ships : \n";
 
         std::string coordinates;
         std::cin >> coordinates;
         int l = coordinates.length();
-        if (l < 4) {
+        if (l < 4 || l > 7) {
             std::cout << "Incorrect coordinates! Try again! \n";
             continue;
         }
@@ -312,15 +323,15 @@ void shipPlacementAll(bool field[][10], int gamer) {
             }
             if (decking != 4) {
                 // проверяем количество палуб по координатам
-                std::cout << "\nThe coordinates are busy. Try again!\n";
+                std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
                 isValidCoordinate = false;
             }
             if (isValidCoordinate) {
                 //если место не занято и палуб сколько нужно, размещаем корабль
-                fourDock--;
+                fourDeck--;
                 shipPlacement(field, x1, y1, x2, y2);
-                std::cout << "One two-deck ship is installed!";
-                if (fourDock) std::cout << " Left: " << fourDock << "\n";
+                // std::cout << "One two-deck ship is installed!";
+                // if (fourDeck) std::cout << " Left: " << fourDeck << "\n";
             }
         }
     }
@@ -329,15 +340,15 @@ void shipPlacementAll(bool field[][10], int gamer) {
 
 }
 
-void killShip(bool field[][10], int x, int y) {
+bool killShip(bool field[][10], int x, int y) {
     // выстрел по кораблям
     if (field[x][y]) {
-        std::cout << "\nGot it!\n";
-        field[x][y] = 0;
+        return true;
     }
     else
     {
         std::cout << "\nBy!\n";
+        return false;
     }
 }
 
@@ -350,8 +361,36 @@ int main()
     shipPlacementAll(field_A, currentGamer);
     currentGamer = 2;
     shipPlacementAll(field_B, currentGamer);
+    currentGamer = 1;
+    int numberHitsA = 20;
+    int numberHitsB = 20;
 
-    
+
+    while (numberHitsA || numberHitsB) {
+        int x, y;
+        std::cout << "Gamer " << currentGamer << " enter the coordinates of the strike: ";
+        std::cin >> x >> y;
+        if (currentGamer == 1) {
+            if (killShip(field_B, x, y)) {
+                std::cout << "\nGot it!\n";
+                field_A[x][y] = 0;
+                numberHitsA--;
+                continue;
+            }
+            else currentGamer = 2;
+        }
+        else
+        {
+            if (killShip(field_A, x, y)) {
+                std::cout << "\nGot it!\n";
+                field_A[x][y] = 0;
+                numberHitsB--;
+                continue;
+            }
+            else currentGamer = 1;
+        }
+    }
+    std::cout << "The player " << currentGamer << " win!!!";
 
 }
 
