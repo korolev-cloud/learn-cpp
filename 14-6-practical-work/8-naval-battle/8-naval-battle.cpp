@@ -1,23 +1,22 @@
 #include <iostream>
 #include <cctype>
 
-void shipPlacement(bool field[][10], int numberOfDeck){
-    int x1 = 10, x2 = 10, y1 = 10, y2 = 10;
+bool shipPlacement(bool field[][10], int numberOfDeck){
+    int x1, x2, y1, y2;
     
     if (numberOfDeck == 1) {
-
         std::string coordinates;
         std::cin >> coordinates;
         int l = coordinates.length();
         if (l > 3) {
-            std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
-            return;
+            std::cout << "Incorrect coordinates! Input coordinates in format x,y\n" << std::endl;
+            return false;
         }
         for (int i = 0; i < l; i++) {
             if (i == 0) {
+                // разбор координат
                 if (isdigit(coordinates[i]))
                     x1 = coordinates[i] - 48;
-                // первое число это x1
                 else {
                     std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
                     break;
@@ -26,78 +25,76 @@ void shipPlacement(bool field[][10], int numberOfDeck){
             else if (i == 2)
                 if (isdigit(coordinates[i]))
                     y1 = coordinates[i] - 48;
-            // второе число это y1
                 else {
                     std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
                     break;
                 }
         }
-        if (x1 < 10 && y1 < 10) {
-            if (field[x1][y1] != 1) {
-                //если место не занято, размещаем однопалубник
-                field[x1][y1] = 1;
-            }
-            else {
-                std::cout << "The coordinates are busy. Try again!\n";
-            }
+        if (field[x1][y1] != 1) {
+            //если место не занято, размещаем однопалубник
+            field[x1][y1] = 1;
+            return true;
+        }
+        else {
+            std::cout << "The coordinates are busy. Try again!\n";
         }
     }
     
-    if (numberOfDeck >= 2 && numberOfDeck <= 4) {
-        // расставляем многопалубные корабли
-        std::string coordinates;
-        std::cin >> coordinates;
-        int l = coordinates.length();
-        if (l < 4 || l > 7) {
-            std::cout << "Incorrect coordinates! Try again! \n";
-            return;
-        }
-        for (int i = 0; i < l; i++) {
-            switch (i) {
-            case 0:
-                if (isdigit(coordinates[i]))
-                    x1 = coordinates[i] - 48;
-                // первое число это x1
-                else {
-                    std::cout << "Incorrect coordinates! Try again! \n";
-                    break;
-                }
-                break;
-            case 2:
-                if (isdigit(coordinates[i]))
-                    y1 = coordinates[i] - 48;
-                else {
-                    std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
-                    break;
-                }
-                break;
-            case 4:
-                if (isdigit(coordinates[i]))
-                    x2 = coordinates[i] - 48;
-                else {
-                    std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
-                    break;
-                }
-                break;
-            case 6:
-                if (isdigit(coordinates[i]))
-                    y2 = coordinates[i] - 48;
-                else {
-                    std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
-                    break;
-                }
-                break;
-            default:
-                continue;
+    else if (numberOfDeck >= 2 && numberOfDeck <= 4) {
+            // расставляем многопалубные корабли
+            std::string coordinates;
+            std::cin >> coordinates;
+            int l = coordinates.length();
+            if (l < 4 || l > 7) {
+                std::cout << "Incorrect coordinates! Try again! \n";
+                return false;
             }
-
-        }
-        if (x1 < 10 && y1 < 10 && x2 < 10 && y2 < 10) {
+            for (int i = 0; i < l; i++) {
+                // разбор введенной строки на координаты
+                switch (i) {
+                case 0:
+                    if (isdigit(coordinates[i]))
+                        x1 = coordinates[i] - 48;
+                    else {
+                        std::cout << "Incorrect coordinates! Try again! \n";
+                        break;
+                    }
+                    break;
+                case 2:
+                    if (isdigit(coordinates[i]))
+                        y1 = coordinates[i] - 48;
+                    else {
+                        std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
+                        break;
+                    }
+                    break;
+                case 4:
+                    if (isdigit(coordinates[i]))
+                        x2 = coordinates[i] - 48;
+                    else {
+                        std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
+                        break;
+                    }
+                    break;
+                case 6:
+                    if (isdigit(coordinates[i]))
+                        y2 = coordinates[i] - 48;
+                    else {
+                        std::cout << "Incorrect coordinates! Try again! \n" << std::endl;
+                        break;
+                    }
+                    break;
+                default:
+                    continue;
+                }
+            }
             bool isValidCoordinate = true;
             int decking = 0;
+            if (x1 > x2) std::swap(x1, x2);
+            if (y1 > y2) std::swap(y1, y2);
             for (int i2 = x1; i2 <= x2 && isValidCoordinate; i2++) {
+                // проверяем, что не заняты введенные координаты
                 for (int j2 = y1; j2 <= y2; j2++) {
-                    // проходим по введенным координатам проверяем что не заняты
                     if (field[i2][j2]) {
                         std::cout << "The coordinates are busy. Try again!\n";
                         isValidCoordinate = false;
@@ -119,7 +116,10 @@ void shipPlacement(bool field[][10], int numberOfDeck){
                     }
                 }
             }
-        }
+            else
+            {
+                return false;
+            }
     }
 }
 
@@ -141,39 +141,46 @@ void printField(bool field[][10], int gamer) {
 
 void shipPlacementAll(bool field[][10], int gamer) {
     printField(field, gamer);
-    const int oneDeck = 4, twoDeck = 3, threeDeck = 2, fourDeck = 1;
-    for (int i = 0; i < oneDeck; i++) {
+    int oneDeck = 4, twoDeck = 3, threeDeck = 2, fourDeck = 1;
+    while (oneDeck) {
         // расстановка однопалубных кораблей
-        std::cout << "Enter the coordinates of the " << i << " one deck ships : \n";
-        shipPlacement(field, oneDeck);
+        std::cout << "Enter the coordinates of the " << oneDeck << " one deck ships in format x,y: \n";
+        if (shipPlacement(field, 1)) {
+            oneDeck--;
+        }
     }
        
     printField(field, gamer);
 
-    for (int i = 0; i < twoDeck; i++) {
+    while (twoDeck) {
         // расстановка двухпалубных кораблей
-        std::cout << "Enter the coordinates of the " << i << " two deck ships : \n";
-        shipPlacement(field, twoDeck);
+        std::cout << "Enter the coordinates of the " << twoDeck << " two deck ships : \n";
+        if (shipPlacement(field, 2)) {
+            twoDeck--;
+        }
     }
 
     printField(field, gamer);
 
-    for (int i = 0; i < threeDeck; i++) {
+    while (threeDeck) {
         // расстановка трехпалубных кораблей
-        std::cout << "Enter the coordinates of the " << i << " three deck ships : \n";
-        shipPlacement(field, threeDeck);
+        std::cout << "Enter the coordinates of the " << threeDeck << " three deck ships : \n";
+        if (shipPlacement(field, 3)) {
+            threeDeck--;
+        }
     }
 
     printField(field, gamer);
 
-    for (int i = 0; i < fourDeck; i++) {
+    while (fourDeck) {
         // расстановка четырехпалубных кораблей
-        std::cout << "Enter the coordinates of the " << i << " four deck ships : \n";
-        shipPlacement(field, fourDeck);
+        std::cout << "Enter the coordinates of the " << fourDeck << " four deck ships : \n";
+        if (shipPlacement(field, 4)) {
+            fourDeck--;
+        }
     }
 
     printField(field, gamer);
-
 }
 
 bool killShip(bool field[][10], int x, int y) {
