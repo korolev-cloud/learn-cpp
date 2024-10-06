@@ -2,7 +2,22 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    int a[] = {-2, 1, -3, 4, -1 ,2 ,1 ,-5 ,4};
+    int startInd = 0;
+    int endInd = sizeof(a)/sizeof(a[0]);
+    int maxSum = 0;
+    for (int i = startInd; i <= endInd; i++) {
+        if (a[i] > a[startInd]) {
+            startInd = i;
+        }
+        if ((a[endInd] + a[endInd - 1]) < 0) endInd -= 2;
+        int currentSum = 0;
+        for (int j = startInd; j <= endInd; j++)
+            currentSum++;
+        if (currentSum > maxSum) maxSum = currentSum;
+        else break;
+    }
+    std::cout << " Start = " << startInd << " End = " << endInd;
 }
 
 /*
