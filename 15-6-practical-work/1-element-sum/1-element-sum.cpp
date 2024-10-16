@@ -1,25 +1,43 @@
 ﻿#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+// Function to find the maximum sum of a contiguous subarray
+// in a given integer array (handles negative numbers as well)
+int kadaneNeg(vector<int> const &arr)
+{
+	// stores the maximum sum subarray found so far
+	int max_so_far = INT_MIN;
+
+	// stores the maximum sum of subarray ending at the current position
+	int max_ending_here = 0;
+
+	// traverse the given array
+	for (int i = 1; i < arr.size(); i++)
+	{
+		// update the maximum sum of subarray "ending" at index 'i' (by adding the
+		// current element to maximum sum ending at previous index 'i-1')
+		max_ending_here = max_ending_here + arr[i];
+
+		// maximum sum should be more than the current element
+		max_ending_here = max(max_ending_here, arr[i]);
+
+		// update the result if the current subarray sum is found to be greater
+		max_so_far = max(max_so_far, max_ending_here);
+	}
+
+	return max_so_far;
+}
 
 int main()
 {
-    int a[] = {-2, 1, -3, 4, -1 ,2 ,1 ,-5 ,4};
-    int startInd = 0;
-    int endInd = sizeof(a)/sizeof(a[0]);
-    int maxSum = 0;
-    for (int i = startInd; i <= endInd; i++) {
-        if (a[i] > a[startInd]) {
-            startInd = i;
-        }
-        if ((a[endInd] + a[endInd - 1]) < 0) endInd -= 2;
-        int currentSum = 0;
-        for (int j = startInd; j <= endInd; j++)
-            currentSum++;
-        if (currentSum > maxSum) maxSum = currentSum;
-        else break;
-    }
-    std::cout << " Start = " << startInd << " End = " << endInd;
-}
+	vector<int> arr = { -8, 3, -6, -2, -5, -4 };
 
+	cout << "The maximum sum of a contiguous subarray is " << kadaneNeg(arr);
+
+	return 0;
+}
 /*
 
 Вам даётся массив целых чисел.Необходимо найти в массиве такие два индекса i и j, 
