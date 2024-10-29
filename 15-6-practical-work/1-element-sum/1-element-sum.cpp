@@ -3,27 +3,27 @@
 #include <climits>
 using namespace std;
 
-// Function to find the maximum sum of a contiguous subarray
-// in a given integer array (handles negative numbers as well)
+// Функция для нахождения начального и конечного индекса
+// подмассива с максимальной суммой элементов
 int kadaneNeg(vector<int> const &arr)
 {
-	// stores the maximum sum subarray found so far
+	// подмассив с максимальной суммой, найденный на данный момент
 	int max_so_far = INT_MIN;
 
-	// stores the maximum sum of subarray ending at the current position
+	// максимальную сумму подмассива, заканчивающегося в текущей позиции
 	int max_ending_here = 0;
 
-	// traverse the given array
+	// пройдите по заданному массиву
 	for (int i = 1; i < arr.size(); i++)
 	{
-		// update the maximum sum of subarray "ending" at index 'i' (by adding the
-		// current element to maximum sum ending at previous index 'i-1')
+		// обновите max_ending_here, "заканчивающегося" на индексе "i" (добавив
+		// текущего элемента к максимальной сумме, заканчивающейся на предыдущем индексе "i-1")
 		max_ending_here = max_ending_here + arr[i];
 
-		// maximum sum should be more than the current element
+		// max_ending_here больше текущего элемента
 		max_ending_here = max(max_ending_here, arr[i]);
 
-		// update the result if the current subarray sum is found to be greater
+		// обновите max_so_far, если сумма max_ending_here больше
 		max_so_far = max(max_so_far, max_ending_here);
 	}
 
