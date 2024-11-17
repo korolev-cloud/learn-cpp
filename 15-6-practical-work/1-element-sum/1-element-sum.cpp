@@ -3,39 +3,42 @@
 #include <climits>
 using namespace std;
 
+int startInd = 0;
+int endInd = 0;
+
 // Функция для нахождения начального и конечного индекса
 // подмассива с максимальной суммой элементов
-int kadaneNeg(vector<int> const &arr)
+void kadaneNeg(vector<int> const &arr)
 {
-	// подмассив с максимальной суммой, найденный на данный момент
+	// инициализируем переменную минимальным значением
 	int max_so_far = INT_MIN;
-
-	// максимальную сумму подмассива, заканчивающегося в текущей позиции
+	// максимальная сумма подмассива, заканчивающегося в текущей позиции, инициализируем нулем
 	int max_ending_here = 0;
-
-	// пройдите по заданному массиву
-	for (int i = 1; i < arr.size(); i++)
+	// проход по массиву
+	for (int i = 0; i < arr.size(); i++)
 	{
-		// обновите max_ending_here, "заканчивающегося" на индексе "i" (добавив
-		// текущего элемента к максимальной сумме, заканчивающейся на предыдущем индексе "i-1")
-		max_ending_here = max_ending_here + arr[i];
-
-		// max_ending_here больше текущего элемента
-		max_ending_here = max(max_ending_here, arr[i]);
-
-		// обновите max_so_far, если сумма max_ending_here больше
-		max_so_far = max(max_so_far, max_ending_here);
+															// 0	1	2	3	4	5	6	7	8
+		// обновление max_ending_here добавлением  			  -2	1	-3	4	-1	2	1	-5	6
+		// текущего элемента к максимальной сумме c предыдущим индексом "i-1")
+		max_ending_here = max_ending_here + arr[i]; 		//-2	-1	-2	2	3	5	6	1	7
+		// если i элемент больше суммы подмассива
+		// установим начало подмассива на текущий элемент
+		if (arr[i] > max_ending_here) startInd = i; 		//0		1	1	3	3	3	3	3	3
+		// обновление максимальной суммы элементов на текущей позиции 
+		// элементом i
+		max_ending_here = max(max_ending_here, arr[i]); 	//-2	1	-2	4	3	5	6	1	7
+		// обновим max_so_far максимальным числом
+		if (max_so_far < max_ending_here) endInd = i; 		//0		1	1	4	4	5	6	6	8
+		// cout << endl << endInd << endl;
+		max_so_far = max(max_so_far, max_ending_here); 		//-2	1	1	4	4	5	6	6	8
 	}
-
-	return max_so_far;
 }
-
 int main()
 {
-	vector<int> arr = { -8, 3, -6, -2, -5, -4 };
-
-	cout << "The maximum sum of a contiguous subarray is " << kadaneNeg(arr);
-
+	vector<int> arr = { -2, 1, -3, 4, -1 ,2 ,1 ,-5, 4};
+	endInd = arr.size();
+	kadaneNeg(arr);
+	cout << "Indexes of the subarray with the maximum sum of elements " << startInd << " and " << endInd;
 	return 0;
 }
 /*
