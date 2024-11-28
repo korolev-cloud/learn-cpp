@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <vector>
-#include <climits>
 
 int startInd = 0;
 int endInd = 0;
