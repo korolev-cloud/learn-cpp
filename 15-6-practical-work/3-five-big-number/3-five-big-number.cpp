@@ -18,15 +18,25 @@ int main() {
 	std::cout << "Input number: ";
 	std::vector<int> arr {inputNumber}; 
 	
+	// пока не ввели -2 выполняем цикл
     while (inputNumber != -2) {
-       	std::cin >> inputNumber;
-		if (inputNumber != -1)	{
-			arr.push_back(inputNumber);
-			insertionSort (arr, arr.size());
+		std::cin >> inputNumber;
+		
+		// если в векторе ровно 5 элементов
+		if (arr.size() == 5){
+			//при вводе -1 выводим 5й по возрастанию элемент
+			if (inputNumber == -1) std::cout << arr[5] << std::endl;
+			//если вводимое значение меньше 5-го по возрастанию
+			else if (inputNumber < arr[5]) {
+				//добавляем его в конец
+				arr.push_back(inputNumber);
+				//
+				arr.erase(arr.end());
+				//сортируем вектор
+				insertionSort (arr, arr.size());
+			}
 		}
-		else {
-			std::cout << arr[5] << std::endl;
-		}	
+		else arr.push_back(inputNumber);
     }
     
 	std::cout << "Final!" << std::endl;
