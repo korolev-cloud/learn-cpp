@@ -2,6 +2,7 @@
 
 float speedDelta = 0.f;
 float speed_value = 0.f;
+float epsilon = 0.01f;
 
 int main() {
     do {
@@ -12,7 +13,7 @@ int main() {
         std::sprintf(speed_str, "%.1f", speed_value);
         std::cout << "Speed: " << speed_str << std::endl;
     }
-    while (speed_value >= 0);    
+    while (speed_value >= 0.01);    
     return 0;
 }
 
