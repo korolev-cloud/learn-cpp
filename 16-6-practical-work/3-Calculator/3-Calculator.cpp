@@ -3,17 +3,19 @@
 
 int main(){
     std::string buffer;
-    std::cout << "Input string in format <number-1><action><number-2>: ";
+    std::cout << "Input expression in format <number-1><action><number-2> ";
     std::cin >> buffer;
     double firtstNumber = 0.f;
     double secondNumber = 0.f;
+    double result = 0.f;
     char operation;
     std::stringstream buffer_stream(buffer);
     buffer_stream >> firtstNumber >> operation >> secondNumber;
-    if (operation == '+') std::cout << "Solution: " << (firtstNumber + secondNumber);
-    else if (operation == '-') std::cout << "Solution: " << (firtstNumber - secondNumber);
-    else if (operation == '*') std::cout << "Solution: " << (firtstNumber * secondNumber);
-    else if (operation == '/') std::cout << "Solution: " << (firtstNumber / secondNumber);
+    if (operation == '+') result = firtstNumber + secondNumber;
+    else if (operation == '-') result = firtstNumber - secondNumber;
+    else if (operation == '*') result = firtstNumber * secondNumber;
+    else if (operation == '/') result = firtstNumber / secondNumber;
+    std::cout << "Solution: " << result;
     return 0;
 }
 
