@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <sstream>
 
 enum switches
@@ -15,21 +15,26 @@ int day = 1;
 int tempLight = 5000;
 int main()
 {
-    while (dayTime <= 23) {
-        std::string buffer;
-        int tInside, tOutside;
-        std::string movement, lights;
-        char switchesState = 0;
+    std::string buffer;
+    int tInside, tOutside;
+    std::string movement, lights;
+    char switchesState = 0;
 
+    while (dayTime <= 48) {
+        
         std::cout << "Temperature inside, temperature outside, movement, lights:\n";
-        std::cin >> buffer;
+        std::getline(std::cin, buffer);
         std::stringstream buffer_stream(buffer);
         buffer_stream >> tInside >> tOutside >> movement >> lights;
         if (tInside < 0 && (switchesState ^ WATER_PIPE_HEATING)) {
             switchesState |= WATER_PIPE_HEATING;
-            std::cout << "Water pipe heating ON!";
+            std::cout << "Water pipe heating ON!\n";
         }
-        dayTime++;ллрлошашке9=9екубекккукеу0екку9=е9кку
+        else if (tInside > 5 && (switchesState & WATER_PIPE_HEATING)) {
+            switchesState &= ~WATER_PIPE_HEATING;
+            std::cout << "Water pipe heating OFF!\n";
+        }
+        dayTime++;
     }
     
 
