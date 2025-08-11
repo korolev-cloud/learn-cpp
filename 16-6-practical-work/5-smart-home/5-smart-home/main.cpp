@@ -10,9 +10,7 @@ enum switches
     CONDITIONER = 16
 };
 
-int dayTime = 0;
-int day = 1;
-int tempLight = 5000;
+int dayCount = 0;
 int main()
 {
     std::string buffer;
@@ -20,22 +18,38 @@ int main()
     std::string movement, lights;
     char switchesState = 0;
 
-    while (dayTime <= 48) {
-        
-        std::cout << "Temperature inside, temperature outside, movement, lights:\n";
-        std::getline(std::cin, buffer);
-        std::stringstream buffer_stream(buffer);
-        buffer_stream >> tInside >> tOutside >> movement >> lights;
-        if (tInside < 0 && (switchesState ^ WATER_PIPE_HEATING)) {
-            switchesState |= WATER_PIPE_HEATING;
-            std::cout << "Water pipe heating ON!\n";
+    while (dayCount <= 2) {
+        int tempLight = 5000;
+        int dayTime = 0;
+        while (dayTime <= 23) {
+                
+            std::cout << "Temperature inside, temperature outside, movement, lights:\n";
+            std::getline(std::cin, buffer);
+            std::stringstream buffer_stream(buffer);
+            buffer_stream >> tInside >> tOutside >> movement >> lights;
+            if (tInside < 0 && (switchesState ^ WATER_PIPE_HEATING)) {
+                switchesState |= WATER_PIPE_HEATING;
+                std::cout << "Water pipe heating ON!\n";
+            }
+            else if (tInside > 5 && (switchesState & WATER_PIPE_HEATING)) {
+                switchesState &= ~WATER_PIPE_HEATING;
+                std::cout << "Water pipe heating OFF!\n";
+            }
+            if (dayTime >= 16 && dayTime < 5) {
+                if (movement == "yes" && (switchesState ^ LIGHTS_OUTSIDE)) {
+                    switchesState |= LIGHTS_OUTSIDE;
+                    std::cout << "Lights ON!\n" << "Color temperature: " << tempLight << " K";
+                } else {
+                    switchesState &= ~LIGHTS_OUTSIDE;
+                    std::cout << "Lights OFF!\n";
+                }
+                tempLight -= 575;
+            }
+            dayTime++;
         }
-        else if (tInside > 5 && (switchesState & WATER_PIPE_HEATING)) {
-            switchesState &= ~WATER_PIPE_HEATING;
-            std::cout << "Water pipe heating OFF!\n";
-        }
-        dayTime++;
+        dayCount++;
     }
+    
     
 
     
