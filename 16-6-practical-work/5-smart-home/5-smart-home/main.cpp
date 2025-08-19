@@ -10,48 +10,92 @@ enum switches
     CONDITIONER = 16
 };
 
+int switchesState = 0;
+
 int dayCount = 0;
 int main()
 {
     std::string buffer;
     int tInside, tOutside;
-    std::string movement, lights;
-    char switchesState = 0;
+    std::string lightsStr, movementStr;
 
     while (dayCount <= 2) {
         int tempLight = 5000;
         int dayTime = 0;
         while (dayTime <= 23) {
                 
-            std::cout << "Temperature inside, temperature outside, movement, lights:\n";
+            std::cout << "\nTemperature inside, temperature outside, movement, lights:\n";
             std::getline(std::cin, buffer);
             std::stringstream buffer_stream(buffer);
-            buffer_stream >> tInside >> tOutside >> movement >> lights;
-            if (tInside < 0 && (switchesState ^ WATER_PIPE_HEATING)) {
+            buffer_stream >> tInside >> tOutside >> movementStr >> lightsStr;
+            bool movement = (movementStr == "yes");
+            bool lights = (lightsStr == "on");
+            
+            if (lights && !(switchesState & LIGHTS_INSIDE)){
+                //свет внутри выключен и команда включить
+                switchesState |= LIGHTS_INSIDE;
+                //изменяем состояние на включено
+                std::cout << "Lights inside ON!\n";
+            }
+            
+            if (!lights && (switchesState & LIGHTS_INSIDE)) {
+                //проверяем что свет внутри включен и введено выключить
+                switchesState &= ~LIGHTS_INSIDE;
+                // изменяем состояние на выключено
+                std::cout << "Lights inside OFF!\n";
+            }
+            
+            
+            if (dayTime >= 16 || dayTime < 5) {
+                if (movement && !(switchesState & LIGHTS_OUTSIDE)){
+                    //свет выключен и есть движение?
+                    switchesState |= LIGHTS_OUTSIDE;
+                    //изменяем состояние на включено
+                    std::cout << "Lights outside ON!\n";;
+                }
+                
+                if (dayTime >= 16 && dayTime < 20) tempLight -= (5000 - 2700) / (20 - 16);
+            }
+            if (!movement && (switchesState & LIGHTS_OUTSIDE)) {
+                //проверяем что свет снаружи включен и нет движения
+                switchesState &= ~LIGHTS_OUTSIDE;
+                // изменяем состояние на выключено
+                std::cout << "Lights outside OFF!\n";;
+            }
+            
+            if ((switchesState & LIGHTS_OUTSIDE) || (switchesState & LIGHTS_INSIDE)) {
+                std::cout << "Color temperature: " << tempLight << " K\n";
+            }
+            
+            
+            if (tOutside < 0 && !(switchesState & WATER_PIPE_HEATING)) {
                 switchesState |= WATER_PIPE_HEATING;
                 std::cout << "Water pipe heating ON!\n";
             }
-            else if (tInside > 5 && (switchesState & WATER_PIPE_HEATING)) {
+            else if (tOutside > 5 && (switchesState & WATER_PIPE_HEATING)) {
                 switchesState &= ~WATER_PIPE_HEATING;
                 std::cout << "Water pipe heating OFF!\n";
             }
-            if (dayTime >= 16 && dayTime < 5) {
-                if (movement == "yes" && (switchesState ^ LIGHTS_OUTSIDE)) {
-                    switchesState |= LIGHTS_OUTSIDE;
-                    std::cout << "Lights ON!\n" << "Color temperature: " << tempLight << " K";
-                } else {
-                    switchesState &= ~LIGHTS_OUTSIDE;
-                    std::cout << "Lights OFF!\n";
-                }
-                tempLight -= 575;
+            if (tInside < 22 && !(switchesState & HEATERS)) {
+                switchesState |= HEATERS;
+                std::cout << "HEATERS ON!\n";
+            }
+            else if (tInside >= 25 && (switchesState & HEATERS)) {
+                switchesState &= ~HEATERS;
+                std::cout << "HEATERS OFF!\n";
+            }
+            if (tInside >= 30 && !(switchesState & CONDITIONER)) {
+                switchesState |= CONDITIONER;
+                std::cout << "CONDITIONER ON!\n";
+            }
+            else if (tInside <= 25 && (switchesState & CONDITIONER)) {
+                switchesState &= ~CONDITIONER;
+                std::cout << "CONDITIONER OFF!\n";
             }
             dayTime++;
         }
         dayCount++;
     }
-    
-    
-
     
 }
 
